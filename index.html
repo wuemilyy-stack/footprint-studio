@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Footprint Studio builds fast websites and runs practical digital marketing for local businesses. Get a free footprint audit.">
+<title>Footprint Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+/* Layout: full-width bands, 1120px inner column; hero pairs the promise with an example footprint score. */
+:root{
+  --paper:#FAF7F2; --surface:#FFFFFF; --ink:#1B2A41; --ink-2:#4B5870; --line:#E5DFD4;
+  --coral:#F2765A; --coral-ink:#B4452C; --coral-soft:#FCE3DB;
+  --band:#1B2A41; --on-band:#FAF7F2; --on-band-2:#B8C2D3; --band-line:#2E4060;
+  --good:#2F8A5B; --warn:#C98A12; --bad:#C2412B;
+  --display:"Sora","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0F1826; --surface:#16223A; --ink:#F1EDE6; --ink-2:#A9B3C4; --line:#27364E;
+  --coral:#F2765A; --coral-ink:#FF957B; --coral-soft:#3A2420;
+  --band:#0A111C; --on-band:#F1EDE6; --on-band-2:#9AA6B8; --band-line:#22314A;
+  --good:#5CC48D; --warn:#E6B04A; --bad:#FF7D66; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1826; --surface:#16223A; --ink:#F1EDE6; --ink-2:#A9B3C4; --line:#27364E;
+  --coral:#F2765A; --coral-ink:#FF957B; --coral-soft:#3A2420;
+  --band:#0A111C; --on-band:#F1EDE6; --on-band-2:#9AA6B8; --band-line:#22314A;
+  --good:#5CC48D; --warn:#E6B04A; --bad:#FF7D66; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(2.4rem,6vw,4.1rem);font-weight:700}
+h2{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:700}
+h3{font-size:1.2rem;font-weight:600}
+p{margin:0}
+a{color:var(--coral-ink)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--coral);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:88px}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-ink);font-weight:500}
+.lede{font-size:1.15rem;color:var(--ink-2);max-width:62ch}
+.head{display:grid;gap:14px;margin-bottom:44px;max-width:720px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--display);font-weight:600;font-size:1rem;padding:14px 22px;border-radius:999px;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--coral);color:#1B2A41}
+.btn-primary:hover{background:#F58A71}
+.btn-ghost{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-ghost:hover{background:var(--ink);color:var(--paper)}
+
+/* Header */
+header.site{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--ink);text-decoration:none}
+.logo svg{flex:none}
+.menu{display:flex;gap:26px;align-items:center}
+.menu a{color:var(--ink);text-decoration:none;font-weight:500;font-size:.98rem}
+.menu a:hover{color:var(--coral-ink)}
+.menu .btn{padding:10px 18px;font-size:.95rem}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:10px;padding:8px 12px;color:var(--ink);font:600 .9rem var(--display);cursor:pointer}
+@media (max-width:880px){
+  .burger{display:inline-flex}
+  .menu{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+  .menu.open{display:flex}
+  .menu a{padding:12px 0;border-bottom:1px solid var(--line)}
+  .menu .btn{margin-top:12px;border-bottom:0}
+}
+
+/* Hero */
+.hero{padding-block:72px 88px}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.hero-grid>*{min-width:0}
+.hero h1 .mark{color:var(--coral-ink)}
+.hero .lede{margin-top:20px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.trust{display:flex;flex-wrap:wrap;gap:22px;margin-top:36px;color:var(--ink-2);font-size:.95rem}
+.trust b{font-family:var(--display);color:var(--ink);font-size:1.05rem}
+.scorecard{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 24px 48px -28px rgba(27,42,65,.35)}
+.sc-top{display:flex;align-items:center;gap:22px}
+.ring{position:relative;width:128px;height:128px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .num{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-family:var(--display)}
+.ring .num b{font-size:2.3rem;line-height:1;display:block}
+.ring .num span{font-size:.75rem;color:var(--ink-2)}
+.sc-meta p{font-size:.9rem;color:var(--ink-2)}
+.sc-meta h3{margin:4px 0 6px}
+.bars{display:grid;gap:12px;margin-top:24px;padding-top:20px;border-top:1px dashed var(--line)}
+.bar{display:grid;grid-template-columns:96px 1fr 34px;gap:12px;align-items:center;font-size:.92rem}
+.track{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.fill{height:100%;border-radius:99px}
+.bar .v{font-family:var(--mono);font-size:.85rem;text-align:right;font-variant-numeric:tabular-nums}
+.fixes{margin-top:20px;padding:14px 16px;border-radius:12px;background:var(--coral-soft);font-size:.92rem}
+.fixes b{font-family:var(--display)}
+.fixes ol{margin:6px 0 0;padding-left:20px}
+.sample{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:99px;border:1px solid var(--line);color:var(--ink-2)}
+@media (max-width:880px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+@media (max-width:420px){.sc-top{flex-direction:column;align-items:flex-start}.bar{grid-template-columns:72px 1fr 30px}}
+
+/* Footprint strip */
+.strip{background:var(--band);color:var(--on-band);padding-block:56px}
+.strip-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:24px}
+.strip-grid div{display:grid;gap:6px;align-content:start;padding-top:14px;border-top:2px solid var(--coral)}
+.strip-grid b{font-family:var(--display);font-size:1.05rem}
+.strip-grid span{color:var(--on-band-2);font-size:.92rem}
+.strip h2{font-size:1.4rem;margin-bottom:28px;color:var(--on-band)}
+@media (max-width:880px){.strip-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.strip-grid{grid-template-columns:1fr}}
+
+/* Services */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px;display:flex;flex-direction:column;gap:12px}
+.svc .meta{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:.75rem;color:var(--ink-2)}
+.svc .meta span{border:1px solid var(--line);border-radius:99px;padding:3px 9px}
+.svc ul{margin:0;padding-left:18px;font-size:.95rem;display:grid;gap:4px}
+.svc p{color:var(--ink-2)}
+.svc.feature{grid-column:span 2;background:var(--band);color:var(--on-band);border-color:var(--band)}
+.svc.feature ul,.svc.feature p{color:var(--on-band-2)}
+.svc.feature .meta{color:var(--on-band-2)}
+.svc.feature .meta span{border-color:var(--band-line)}
+.svc.feature h3{font-size:1.5rem}
+.svc .more{margin-top:auto;font-weight:600;text-decoration:none}
+.svc.feature .more{color:var(--coral)}
+@media (max-width:980px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.svc-grid{grid-template-columns:1fr}.svc.feature{grid-column:auto}}
+
+/* Process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.step{padding:24px 22px 0 0;display:grid;gap:8px;align-content:start}
+.step .n{font-family:var(--mono);color:var(--coral-ink);font-size:.85rem}
+.step p{color:var(--ink-2);font-size:.95rem}
+@media (max-width:880px){.steps{grid-template-columns:repeat(2,1fr);row-gap:20px}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* Work */
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.case{border:1px solid var(--line);border-radius:var(--r);background:var(--paper);overflow:hidden;display:flex;flex-direction:column}
+.case .art{aspect-ratio:16/9;max-width:100%;display:grid;place-items:center;text-align:center;padding:16px;font-family:var(--display);font-weight:700;font-size:1.3rem;color:#1B2A41}
+.case .body{padding:22px;display:grid;gap:10px}
+.case .tag{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.85rem;color:var(--ink-2)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;padding-top:14px;border-top:1px solid var(--line)}
+.metrics b{display:block;font-family:var(--display);font-size:1.35rem;color:var(--coral-ink);font-variant-numeric:tabular-nums}
+.metrics span{font-size:.78rem;color:var(--ink-2);line-height:1.3;display:block}
+.quote{margin-top:44px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;max-width:860px}
+.quote .q{font-family:var(--display);font-size:4rem;line-height:.8;color:var(--coral)}
+.quote blockquote{margin:0;font-family:var(--display);font-size:1.35rem;font-weight:500;line-height:1.45}
+.quote cite{display:block;margin-top:12px;font-style:normal;font-family:var(--body);font-size:.95rem;color:var(--ink-2)}
+@media (max-width:880px){.cases{grid-template-columns:1fr}}
+
+/* Pricing */
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;background:var(--surface);margin-bottom:28px}
+.toggle button{border:0;background:transparent;color:var(--ink);font:600 .95rem var(--display);padding:10px 18px;border-radius:999px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.plan{border:1px solid var(--line);border-radius:var(--r);padding:28px;background:var(--surface);display:flex;flex-direction:column;gap:14px}
+.plan.pop{border:2px solid var(--coral)}
+.plan .pill{align-self:flex-start;background:var(--coral);color:#1B2A41;font:600 .75rem var(--display);padding:4px 10px;border-radius:99px}
+.price{font-family:var(--display);font-size:2.2rem;font-weight:700;font-variant-numeric:tabular-nums}
+.price small{font-size:.95rem;font-weight:500;color:var(--ink-2)}
+.plan .desc{color:var(--ink-2)}
+.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.95rem}
+.plan li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+.plan li::before{content:"";width:10px;height:10px;margin-top:8px;border-radius:50%;background:var(--coral)}
+.plan .btn{margin-top:auto}
+.fine{margin-top:20px;color:var(--ink-2);font-size:.9rem}
+@media (max-width:880px){.plans{grid-template-columns:1fr}}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.about-grid>*{min-width:0}
+.values{display:grid;gap:18px}
+.values>div{display:grid;grid-template-columns:44px 1fr;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.values .ic{width:44px;height:44px;border-radius:12px;background:var(--coral-soft);display:grid;place-items:center;color:var(--coral-ink);font-family:var(--display);font-weight:700}
+.values p{color:var(--ink-2);font-size:.95rem}
+@media (max-width:880px){.about-grid{grid-template-columns:1fr;gap:36px}}
+
+/* Blog */
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.post{display:grid;gap:10px;align-content:start;padding:24px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);text-decoration:none;color:var(--ink)}
+.post:hover h3{color:var(--coral-ink)}
+.post .when{font-family:var(--mono);font-size:.75rem;color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase}
+.post p{color:var(--ink-2);font-size:.95rem}
+@media (max-width:880px){.posts{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{display:grid;gap:10px;max-width:820px}
+.faq details{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:0 20px}
+.faq summary{cursor:pointer;font-family:var(--display);font-weight:600;padding:18px 0;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--coral-ink);font-size:1.3rem;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding-bottom:18px;color:var(--ink-2)}
+
+/* Contact */
+.contact{background:var(--band);color:var(--on-band)}
+.contact h2{color:var(--on-band)}
+.contact .lede{color:var(--on-band-2)}
+.contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
+.contact-grid>*{min-width:0}
+.direct{display:grid;gap:18px;margin-top:32px}
+.direct div{display:grid;gap:2px}
+.direct span{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-band-2)}
+.direct b{font-family:var(--display);font-weight:600;font-size:1.1rem;user-select:all;overflow-wrap:anywhere}
+form{background:var(--surface);color:var(--ink);border-radius:20px;padding:30px;display:grid;gap:18px}
+.goal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border:0;padding:0;margin:0}
+.goal legend{font-weight:600;margin-bottom:8px;font-size:.95rem}
+.goal label{position:relative;border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;font-size:.9rem;font-weight:600;font-family:var(--display);display:grid;gap:2px}
+.goal label small{font-family:var(--body);font-weight:400;color:var(--ink-2);font-size:.8rem}
+.goal input{position:absolute;opacity:0}
+.goal label:has(input:checked){border:2px solid var(--coral);background:var(--coral-soft);padding:11px}
+.goal label:has(input:focus-visible){outline:3px solid var(--coral);outline-offset:2px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:grid;gap:6px;font-size:.92rem;font-weight:600}
+.field .opt{font-weight:400;color:var(--ink-2)}
+.field input,.field select,.field textarea{font:400 1rem var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+.field textarea{min-height:96px;resize:vertical}
+.field .err{font-weight:500;color:var(--bad);font-size:.85rem}
+.field.bad input{border-color:var(--bad)}
+.done{display:grid;gap:10px;padding:8px 0}
+.done h3{font-size:1.4rem}
+.done p{color:var(--ink-2)}
+@media (max-width:880px){.contact-grid{grid-template-columns:1fr;gap:36px}}
+@media (max-width:560px){.row,.goal{grid-template-columns:1fr}form{padding:22px}}
+
+footer{background:var(--band);color:var(--on-band-2);border-top:1px solid var(--band-line);padding-block:36px;font-size:.92rem}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center}
+footer .logo{color:var(--on-band)}
+footer nav{display:flex;flex-wrap:wrap;gap:18px}
+footer a{color:var(--on-band-2);text-decoration:none}
+footer a:hover{color:var(--on-band)}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Footprint Studio home">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="9" fill="#F2765A"/><ellipse cx="13" cy="18.5" rx="5" ry="7" fill="#1B2A41"/><circle cx="20.5" cy="9" r="2.2" fill="#1B2A41"/><circle cx="15.8" cy="6.6" r="1.8" fill="#1B2A41"/><circle cx="23.6" cy="13.6" r="1.9" fill="#1B2A41"/></svg>
+      Footprint Studio
+    </a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav class="menu" id="menu" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#blog">Blog</a>
+      <a class="btn btn-primary" href="#contact" data-goal="audit">Free audit</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Websites + digital marketing for local businesses</p>
+        <h1 style="margin-top:14px">Get found.<br><span class="mark">Get chosen.</span></h1>
+        <p class="lede">Most customers look you up before they call. We build fast websites and run practical marketing so the business they find online matches the one you've built.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#contact" data-goal="audit">Get your free footprint audit</a>
+          <a class="btn btn-ghost" href="#contact" data-goal="call">Book a 20-minute call</a>
+        </div>
+        <div class="trust">
+          <span><b>Free</b> audit, no obligation</span>
+          <span><b>4–8 weeks</b> to a new site</span>
+          <span><b>Monthly</b> results you can read</span>
+        </div>
+      </div>
+
+      <aside class="scorecard" aria-label="Example footprint audit">
+        <div class="sc-top">
+          <div class="ring">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--line)" stroke-width="12"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--coral)" stroke-width="12" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="182.2"/>
+            </svg>
+            <div class="num"><div><b>42</b><span>out of 100</span></div></div>
+          </div>
+          <div class="sc-meta">
+            <span class="sample">Example report</span>
+            <h3>Harbor Street Dental</h3>
+            <p>Footprint score across the five areas customers check before they book.</p>
+          </div>
+        </div>
+        <div class="bars">
+          <div class="bar"><span>Website</span><div class="track"><div class="fill" style="width:38%;background:var(--bad)"></div></div><span class="v">38</span></div>
+          <div class="bar"><span>Search</span><div class="track"><div class="fill" style="width:31%;background:var(--bad)"></div></div><span class="v">31</span></div>
+          <div class="bar"><span>Listings</span><div class="track"><div class="fill" style="width:55%;background:var(--warn)"></div></div><span class="v">55</span></div>
+          <div class="bar"><span>Social</span><div class="track"><div class="fill" style="width:24%;background:var(--bad)"></div></div><span class="v">24</span></div>
+          <div class="bar"><span>Reviews</span><div class="track"><div class="fill" style="width:72%;background:var(--good)"></div></div><span class="v">72</span></div>
+        </div>
+        <div class="fixes">
+          <b>Top 3 fixes</b>
+          <ol>
+            <li>Mobile pages take 6.8 s to load; aim for under 2.5 s.</li>
+            <li>Google Business Profile is missing hours and photos.</li>
+            <li>No page targets "dentist near me" for your area.</li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="wrap">
+      <h2>What your digital footprint is made of</h2>
+      <div class="strip-grid">
+        <div><b>Website</b><span>Speed, mobile layout, clear calls to action, accessibility.</span></div>
+        <div><b>Search</b><span>Rankings for the services and towns you actually serve.</span></div>
+        <div><b>Listings</b><span>Google Business Profile, Apple Maps, Yelp: one consistent name, address and phone.</span></div>
+        <div><b>Social</b><span>Active profiles that show real work, posted on a schedule.</span></div>
+        <div><b>Reviews</b><span>Steady new reviews and a reply to every one.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Services</p>
+        <h2>One team for your website and the marketing around it</h2>
+        <p class="lede">Each service has a fixed scope and price, so you know what you're getting before we start.</p>
+      </div>
+      <div class="svc-grid">
+        <article class="svc feature">
+          <div class="meta"><span>4–8 weeks</span><span>Fixed fee</span></div>
+          <h3>Website design and build</h3>
+          <p>A fast, mobile-first site that turns visitors into calls, bookings and quote requests. You'll be able to edit it yourself.</p>
+          <ul>
+            <li>Discovery workshop, sitemap and copy plan</li>
+            <li>Custom design with two rounds of revisions</li>
+            <li>Built on a modern CMS, with SEO set up from day one</li>
+            <li>Analytics, call and form tracking, launch and training</li>
+          </ul>
+          <a class="more" href="#pricing" data-tab="build">See website packages →</a>
+        </article>
+        <article class="svc">
+          <div class="meta"><span>1 week</span><span>Free</span></div>
+          <h3>Digital footprint audit</h3>
+          <p>A scored review of your website, search, listings, social and reviews, with the three fixes that matter most.</p>
+          <a class="more" href="#contact" data-goal="audit">Request an audit →</a>
+        </article>
+        <article class="svc">
+          <div class="meta"><span>2–3 weeks</span><span>Fixed fee</span></div>
+          <h3>Marketing strategy</h3>
+          <p>A 90-day plan: goals, audience, channels, content calendar, budget and the numbers we'll track.</p>
+          <a class="more" href="#contact" data-goal="call">Talk to a strategist →</a>
+        </article>
+        <article class="svc">
+          <div class="meta"><span>Monthly</span><span>Retainer</span></div>
+          <h3>Managed marketing</h3>
+          <p>We run local SEO, your Google Business Profile, social posts, email and ads, then report results every month.</p>
+          <a class="more" href="#pricing" data-tab="monthly">See monthly plans →</a>
+        </article>
+        <article class="svc">
+          <div class="meta"><span>Monthly</span><span>Care plan</span></div>
+          <h3>Hosting and care</h3>
+          <p>Hosting, backups, security updates, uptime monitoring and an hour of edits each month.</p>
+          <a class="more" href="#pricing" data-tab="monthly">See care plans →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">How it works</p>
+        <h2>From first audit to monthly results</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="n">Step 1</span><h3>Audit</h3><p>We score your footprint and walk you through it in a 30-minute call.</p></div>
+        <div class="step"><span class="n">Step 2</span><h3>Plan</h3><p>You get a proposal with a fixed scope, timeline and price. Sign and pay the deposit online.</p></div>
+        <div class="step"><span class="n">Step 3</span><h3>Build</h3><p>Approve designs and content in your client portal. We launch with a 30-point checklist.</p></div>
+        <div class="step"><span class="n">Step 4</span><h3>Grow</h3><p>Each month you get a plain-language report: visitors, calls, leads, rankings, reviews.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="alt">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Work</p>
+        <h2>What changes after the work is done</h2>
+        <p class="lede">Each case study reports the same numbers we put in client reports, comparing the six months before and after launch.</p>
+      </div>
+      <div class="cases">
+        <article class="case">
+          <div class="art" style="background:#F2C6B6">Harbor Street Dental</div>
+          <div class="body">
+            <div class="tag"><span>Dental practice · Website + local SEO</span><span class="sample">Sample</span></div>
+            <h3>Online bookings replaced phone tag</h3>
+            <div class="metrics">
+              <div><b>+64%</b><span>organic visits</span></div>
+              <div><b>3.1×</b><span>online bookings</span></div>
+              <div><b>1.9 s</b><span>mobile load time</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="case">
+          <div class="art" style="background:#BFD3C7">Oakline Landscaping</div>
+          <div class="body">
+            <div class="tag"><span>Home services · Managed marketing</span><span class="sample">Sample</span></div>
+            <h3>Top three in the map results for 8 towns</h3>
+            <div class="metrics">
+              <div><b>+112</b><span>new Google reviews</span></div>
+              <div><b>+41%</b><span>calls from Google</span></div>
+              <div><b>$38</b><span>cost per lead from ads</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="case">
+          <div class="art" style="background:#C9CFE2">Juniper &amp; Rye Bakery</div>
+          <div class="body">
+            <div class="tag"><span>Café · Website + social</span><span class="sample">Sample</span></div>
+            <h3>Pre-orders took over the weekend rush</h3>
+            <div class="metrics">
+              <div><b>420</b><span>pre-orders per month</span></div>
+              <div><b>+2.4k</b><span>Instagram followers</span></div>
+              <div><b>98</b><span>accessibility score</span></div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="quote">
+        <span class="q" aria-hidden="true">“</span>
+        <div>
+          <blockquote>Replace this with a short quote from a real client, ideally naming one result they noticed, like more calls or less time spent on marketing.</blockquote>
+          <cite>Client name, role, business <span class="sample">Placeholder</span></cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Pricing</p>
+        <h2>Clear prices, no surprise invoices</h2>
+        <p class="lede">Website builds are a fixed fee: half to start, half at launch. Monthly plans run month to month after the first three months.</p>
+      </div>
+      <div class="toggle" role="group" aria-label="Pricing type">
+        <button type="button" id="tabBuild" aria-pressed="true" data-tab="build">Website builds</button>
+        <button type="button" id="tabMonthly" aria-pressed="false" data-tab="monthly">Monthly plans</button>
+      </div>
+
+      <div class="plans" id="plansBuild">
+        <article class="plan">
+          <h3>Starter site</h3>
+          <div class="price">$3,500 <small>one time</small></div>
+          <p class="desc">For new or very small businesses that need a credible home online.</p>
+          <ul><li>Up to 5 pages</li><li>Template-based custom design</li><li>Contact form and click-to-call</li><li>Google Business Profile setup</li><li>Launch in about 4 weeks</li></ul>
+          <a class="btn btn-ghost" href="#contact" data-goal="call">Start a Starter site</a>
+        </article>
+        <article class="plan pop">
+          <span class="pill">Most chosen</span>
+          <h3>Growth site</h3>
+          <div class="price">$7,500 <small>one time</small></div>
+          <p class="desc">For established businesses ready to win more local search traffic.</p>
+          <ul><li>Up to 15 pages, with service and location pages</li><li>Fully custom design, two revision rounds</li><li>Copywriting for core pages</li><li>Booking or quote request integration</li><li>Launch in about 6 weeks</li></ul>
+          <a class="btn btn-primary" href="#contact" data-goal="call">Start a Growth site</a>
+        </article>
+        <article class="plan">
+          <h3>Custom build</h3>
+          <div class="price">From $12k</div>
+          <p class="desc">For online stores, memberships, or sites with custom features.</p>
+          <ul><li>Scoped in a paid discovery sprint</li><li>E-commerce or member areas</li><li>Integrations with your tools</li><li>Migration from an existing site</li><li>Timeline set in the proposal</li></ul>
+          <a class="btn btn-ghost" href="#contact" data-goal="call">Scope a custom build</a>
+        </article>
+      </div>
+
+      <div class="plans" id="plansMonthly" hidden>
+        <article class="plan">
+          <h3>Care plan</h3>
+          <div class="price">$149 <small>/ month</small></div>
+          <p class="desc">Keep your site fast, secure and up to date.</p>
+          <ul><li>Managed hosting and SSL</li><li>Daily backups, kept 30 days</li><li>Security updates and uptime monitoring</li><li>1 hour of edits each month</li></ul>
+          <a class="btn btn-ghost" href="#contact" data-goal="question">Ask about care plans</a>
+        </article>
+        <article class="plan pop">
+          <span class="pill">Most chosen</span>
+          <h3>Local growth</h3>
+          <div class="price">$1,200 <small>/ month</small></div>
+          <p class="desc">Show up in local search and keep the reviews coming.</p>
+          <ul><li>Everything in Care</li><li>Local SEO and monthly content</li><li>Google Business Profile posts and review replies</li><li>8 social posts a month</li><li>Monthly report and call</li></ul>
+          <a class="btn btn-primary" href="#contact" data-goal="call">Talk about Local growth</a>
+        </article>
+        <article class="plan">
+          <h3>Full marketing</h3>
+          <div class="price">$2,800 <small>/ month</small></div>
+          <p class="desc">A part-time marketing team, without the hire.</p>
+          <ul><li>Everything in Local growth</li><li>Google and Meta ad management (ad spend billed separately)</li><li>Email newsletter</li><li>Quarterly strategy review</li></ul>
+          <a class="btn btn-ghost" href="#contact" data-goal="call">Talk about Full marketing</a>
+        </article>
+      </div>
+      <p class="fine">All prices in USD, before tax. Not sure which fits? Start with the free audit and we'll recommend one.</p>
+    </div>
+  </section>
+
+  <section id="about" class="alt">
+    <div class="wrap about-grid">
+      <div class="head" style="margin-bottom:0">
+        <p class="eyebrow">About</p>
+        <h2>A small studio for businesses too busy for marketing</h2>
+        <p class="lede">Footprint Studio is a team of designers, developers and marketers who work with owner-run businesses: clinics, trades, restaurants, shops and professional services.</p>
+        <p class="lede">You talk to the same strategist from the first audit to the monthly report. Your designs, approvals, invoices and results all live in one client portal, so nothing gets lost in email.</p>
+      </div>
+      <div class="values">
+        <div><span class="ic">1</span><div><h3>Results you can read</h3><p>Reports show calls, leads and bookings, not just clicks, with a short note on what we'll do next.</p></div></div>
+        <div><span class="ic">2</span><div><h3>You own everything</h3><p>Your domain, website, accounts and content are in your name. If you leave, it all goes with you.</p></div></div>
+        <div><span class="ic">3</span><div><h3>Built for everyone</h3><p>Every site we launch meets WCAG 2.2 AA accessibility and loads in under 2.5 seconds on mobile.</p></div></div>
+        <div><span class="ic">4</span><div><h3>Fixed scope, fixed price</h3><p>Proposals spell out the deliverables. Extra requests are quoted before any work starts.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Blog</p>
+        <h2>Practical guides for owners</h2>
+      </div>
+      <div class="posts">
+        <a class="post" href="#blog"><span class="when">Local SEO · 6 min read</span><h3>Fill in your Google Business Profile properly in 30 minutes</h3><p>The ten fields that most affect whether you show up in the map results.</p></a>
+        <a class="post" href="#blog"><span class="when">Websites · 5 min read</span><h3>Why your website is slow on phones, and what to fix first</h3><p>Images, fonts and plugins: how to read a PageSpeed report without a developer.</p></a>
+        <a class="post" href="#blog"><span class="when">Reviews · 4 min read</span><h3>How to ask for reviews without feeling awkward</h3><p>Three scripts and one follow-up text that work for service businesses.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><p class="eyebrow">Questions</p><h2>Before you get in touch</h2></div>
+      <div class="faq">
+        <details><summary>What do I need to have ready before we start?</summary><p>Your logo, any photos you like, and access to your domain. We'll send a guided checklist through your client portal and help with anything you don't have.</p></details>
+        <details><summary>Can I update the website myself?</summary><p>Yes. Every site comes with an editor and a recorded training session. If you'd rather not, the care plan covers small edits each month.</p></details>
+        <details><summary>Do you lock me into a long contract?</summary><p>Website builds are one-time projects. Monthly plans have a three-month minimum, then run month to month with 30 days' notice.</p></details>
+        <details><summary>How soon will I see results from marketing?</summary><p>Listing and website fixes often show up within weeks. Local search rankings usually take three to six months to move meaningfully, and we report progress every month.</p></details>
+        <details><summary>Who owns the website and accounts?</summary><p>You do. Domains, hosting, analytics and ad accounts are set up in your business's name, with us added as users.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow" style="color:var(--coral)">Contact</p>
+        <h2 style="margin-top:14px">Start with a free footprint audit</h2>
+        <p class="lede" style="margin-top:16px">Tell us about your business. You'll get a scored report and the three fixes we'd make first, usually within one business day.</p>
+        <div class="direct">
+          <div><span>Email</span><b>hello@footprintstudio.example</b></div>
+          <div><span>Phone</span><b>(555) 010-0142</b></div>
+          <div><span>Hours</span><b>Mon–Fri, 9 a.m.–5 p.m.</b></div>
+        </div>
+      </div>
+
+      <form id="leadForm" novalidate>
+        <div id="formBody" style="display:grid;gap:18px">
+          <fieldset class="goal">
+            <legend>What would you like?</legend>
+            <label><input type="radio" name="goal" id="goalAudit" value="audit" checked>Free audit<small>Scored report</small></label>
+            <label><input type="radio" name="goal" id="goalCall" value="call">Book a call<small>20 minutes</small></label>
+            <label><input type="radio" name="goal" id="goalQuestion" value="question">Ask a question<small>Reply in 1 day</small></label>
+          </fieldset>
+          <div class="row">
+            <label class="field" for="fName">Your name<input id="fName" name="name" autocomplete="name" required><span class="err" hidden>Enter your name.</span></label>
+            <label class="field" for="fBiz">Business name<input id="fBiz" name="business" autocomplete="organization" required><span class="err" hidden>Enter your business name.</span></label>
+          </div>
+          <div class="row">
+            <label class="field" for="fEmail">Email<input id="fEmail" name="email" type="email" autocomplete="email" required><span class="err" hidden>Enter an email like name@business.com.</span></label>
+            <label class="field" for="fPhone">Phone <span class="opt">(optional)</span><input id="fPhone" name="phone" type="tel" autocomplete="tel"></label>
+          </div>
+          <label class="field" for="fUrl">Current website <span class="opt">(leave blank if you don't have one)</span><input id="fUrl" name="website" type="url" placeholder="https://"><span class="err" hidden>Start the address with https://</span></label>
+          <div class="row">
+            <label class="field" for="fService">Most interested in
+              <select id="fService" name="service">
+                <option>Not sure yet</option><option>New website</option><option>Marketing strategy</option><option>Managed marketing</option><option>Hosting and care</option>
+              </select>
+            </label>
+            <label class="field" for="fBudget">Budget range
+              <select id="fBudget" name="budget">
+                <option>Not sure yet</option><option>Under $3,000</option><option>$3,000–$7,500</option><option>$7,500–$15,000</option><option>$15,000+</option><option>Monthly plan</option>
+              </select>
+            </label>
+          </div>
+          <label class="field" for="fMsg">Anything else we should know? <span class="opt">(optional)</span><textarea id="fMsg" name="message" placeholder="Your town, your best customers, what's not working…"></textarea></label>
+          <button class="btn btn-primary" type="submit" id="submitBtn">Request my free audit</button>
+        </div>
+        <div class="done" id="formDone" hidden aria-live="polite">
+          <span class="eyebrow">Received</span>
+          <h3 id="doneTitle">Thanks, we've got your details.</h3>
+          <p id="doneText">We'll email your footprint report within one business day.</p>
+          <p style="font-size:.85rem">Preview site: this form isn't connected yet, so nothing was sent.</p>
+          <button class="btn btn-ghost" type="button" id="againBtn" style="justify-self:start">Send another request</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#top">Footprint Studio</a>
+    <nav aria-label="Footer">
+      <a href="#services">Services</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#about">About</a><a href="#blog">Blog</a><a href="#contact">Contact</a>
+    </nav>
+    <span>© 2026 Footprint Studio · Privacy · Accessibility</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  burger.addEventListener('click',function(){var o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',String(o))});
+  menu.addEventListener('click',function(e){if(e.target.tagName==='A'){menu.classList.remove('open');burger.setAttribute('aria-expanded','false')}});
+
+  var tb=document.getElementById('tabBuild'), tm=document.getElementById('tabMonthly');
+  var pb=document.getElementById('plansBuild'), pm=document.getElementById('plansMonthly');
+  function setTab(t){var b=t==='build';tb.setAttribute('aria-pressed',String(b));tm.setAttribute('aria-pressed',String(!b));pb.hidden=!b;pm.hidden=b}
+  document.querySelectorAll('[data-tab]').forEach(function(el){el.addEventListener('click',function(){setTab(el.dataset.tab)})});
+
+  var labels={audit:'Request my free audit',call:'Request a call',question:'Send my question'};
+  var submitBtn=document.getElementById('submitBtn');
+  function setGoal(g){var r=document.querySelector('input[name=goal][value='+g+']');if(r){r.checked=true;submitBtn.textContent=labels[g]}}
+  document.querySelectorAll('[data-goal]').forEach(function(el){el.addEventListener('click',function(){setGoal(el.dataset.goal)})});
+  document.querySelectorAll('input[name=goal]').forEach(function(r){r.addEventListener('change',function(){setGoal(r.value)})});
+
+  var form=document.getElementById('leadForm'), body=document.getElementById('formBody'), done=document.getElementById('formDone');
+  function check(id,ok){var f=document.getElementById(id).closest('.field');f.classList.toggle('bad',!ok);f.querySelector('.err').hidden=ok;return ok}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=function(id){return document.getElementById(id).value.trim()};
+    var url=v('fUrl');
+    var ok=[check('fName',!!v('fName')),check('fBiz',!!v('fBiz')),check('fEmail',/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('fEmail'))),check('fUrl',!url||/^https?:\/\/\S+\.\S+/.test(url))];
+    if(ok.indexOf(false)>-1){var bad=form.querySelector('.field.bad input');if(bad)bad.focus();return}
+    var g=form.querySelector('input[name=goal]:checked').value, name=v('fName').split(' ')[0];
+    var t={audit:['Thanks, '+name+'. Your audit is in the queue.','We\'ll email the footprint report for '+v('fBiz')+' to '+v('fEmail')+' within one business day.'],
+           call:['Thanks, '+name+'. Let\'s find a time.','We\'ll email '+v('fEmail')+' with three call times this week.'],
+           question:['Thanks, '+name+'. We\'ll reply soon.','Expect an answer at '+v('fEmail')+' within one business day.']}[g];
+    document.getElementById('doneTitle').textContent=t[0];
+    document.getElementById('doneText').textContent=t[1];
+    body.hidden=true;done.hidden=false;
+  });
+  document.getElementById('againBtn').addEventListener('click',function(){form.reset();setGoal('audit');done.hidden=true;body.hidden=false});
+})();
+</script>
+</body>
+</html>
