@@ -210,7 +210,7 @@ header.site{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--
 .direct span{font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-band-2)}
 .direct b{font-family:var(--display);font-weight:600;font-size:1.1rem;user-select:all;overflow-wrap:anywhere}
 form{background:var(--surface);color:var(--ink);border-radius:20px;padding:30px;display:grid;gap:18px}
-.goal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border:0;padding:0;margin:0}
+.goal{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;border:0;padding:0;margin:0}
 .goal legend{font-weight:600;margin-bottom:8px;font-size:.95rem}
 .goal label{position:relative;border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;font-size:.9rem;font-weight:600;font-family:var(--display);display:grid;gap:2px}
 .goal label small{font-family:var(--body);font-weight:400;color:var(--ink-2);font-size:.8rem}
@@ -224,6 +224,13 @@ form{background:var(--surface);color:var(--ink);border-radius:20px;padding:30px;
 .field textarea{min-height:96px;resize:vertical}
 .field .err{font-weight:500;color:var(--bad);font-size:.85rem}
 .field.bad input{border-color:var(--bad)}
+.slots{border:0;padding:0;margin:0;display:grid;gap:8px;min-width:0}
+.slots legend{font-weight:600;font-size:.95rem;margin-bottom:4px}
+.slots .hint{font-size:.85rem;color:var(--ink-2)}
+.slot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.slot-grid>*{min-width:0}
+.slots>.err{color:var(--bad);font-size:.85rem;font-weight:500}
+@media (max-width:760px){.slot-grid{grid-template-columns:1fr}}
 .done{display:grid;gap:10px;padding:8px 0}
 .done h3{font-size:1.4rem}
 .done p{color:var(--ink-2)}
@@ -555,10 +562,10 @@ footer a:hover{color:var(--on-band)}
     <div class="wrap contact-grid">
       <div>
         <p class="eyebrow" style="color:var(--coral)">Contact</p>
-        <h2 style="margin-top:14px">Start with a free footprint audit</h2>
-        <p class="lede" style="margin-top:16px">Tell us about your business. You'll get a scored report and the three fixes we'd make first, usually within one business day.</p>
+        <h2 style="margin-top:14px">Book a call or ask a question</h2>
+        <p class="lede" style="margin-top:16px">Tell us about your business and pick three times that suit you. We'll confirm one by email within one business day.</p>
         <div class="direct">
-          <div><span>Email</span><b>hello@footprintstudio.example</b></div>
+          <div><span>Email</span><b>yummyfitsupport@gmail.com</b></div>
           <div><span>Phone</span><b>(555) 010-0142</b></div>
           <div><span>Hours</span><b>Mon–Fri, 9 a.m.–5 p.m.</b></div>
         </div>
@@ -568,8 +575,7 @@ footer a:hover{color:var(--on-band)}
         <div id="formBody" style="display:grid;gap:18px">
           <fieldset class="goal">
             <legend>What would you like?</legend>
-            <label><input type="radio" name="goal" id="goalAudit" value="audit" checked>Free audit<small>Scored report</small></label>
-            <label><input type="radio" name="goal" id="goalCall" value="call">Book a call<small>20 minutes</small></label>
+            <label><input type="radio" name="goal" id="goalCall" value="call" checked>Book a call<small>20 minutes</small></label>
             <label><input type="radio" name="goal" id="goalQuestion" value="question">Ask a question<small>Reply in 1 day</small></label>
           </fieldset>
           <div class="row">
@@ -578,8 +584,18 @@ footer a:hover{color:var(--on-band)}
           </div>
           <div class="row">
             <label class="field" for="fEmail">Email<input id="fEmail" name="email" type="email" autocomplete="email" required><span class="err" hidden>Enter an email like name@business.com.</span></label>
-            <label class="field" for="fPhone">Phone <span class="opt">(optional)</span><input id="fPhone" name="phone" type="tel" autocomplete="tel"></label>
+            <label class="field" for="fPhone">Phone <span class="opt" id="phoneOpt" hidden>(optional)</span><input id="fPhone" name="phone" type="tel" autocomplete="tel"><span class="err" hidden>Enter a phone number we can call you on.</span></label>
           </div>
+          <fieldset class="slots" id="slots">
+            <legend>Three times that work for a 20-minute call</legend>
+            <p class="hint">Times are in your local time zone. We'll confirm one of them by email.</p>
+            <div class="slot-grid">
+              <label class="field" for="fSlot1">Option 1<input id="fSlot1" name="slot1" type="datetime-local"><span class="err" hidden>Pick a future date and time.</span></label>
+              <label class="field" for="fSlot2">Option 2<input id="fSlot2" name="slot2" type="datetime-local"><span class="err" hidden>Pick a future date and time.</span></label>
+              <label class="field" for="fSlot3">Option 3<input id="fSlot3" name="slot3" type="datetime-local"><span class="err" hidden>Pick a future date and time.</span></label>
+            </div>
+            <p class="err" id="slotDup" hidden>Pick three different times.</p>
+          </fieldset>
           <label class="field" for="fUrl">Current website <span class="opt">(leave blank if you don't have one)</span><input id="fUrl" name="website" type="url" placeholder="https://"><span class="err" hidden>Start the address with https://</span></label>
           <div class="row">
             <label class="field" for="fService">Most interested in
@@ -594,7 +610,7 @@ footer a:hover{color:var(--on-band)}
             </label>
           </div>
           <label class="field" for="fMsg">Anything else we should know? <span class="opt">(optional)</span><textarea id="fMsg" name="message" placeholder="Your town, your best customers, what's not working…"></textarea></label>
-          <button class="btn btn-primary" type="submit" id="submitBtn">Request my free audit</button>
+          <button class="btn btn-primary" type="submit" id="submitBtn">Request a call</button>
         </div>
         <div class="done" id="formDone" hidden aria-live="polite">
           <span class="eyebrow">Received</span>
@@ -629,9 +645,13 @@ footer a:hover{color:var(--on-band)}
   function setTab(t){var b=t==='build';tb.setAttribute('aria-pressed',String(b));tm.setAttribute('aria-pressed',String(!b));pb.hidden=!b;pm.hidden=b}
   document.querySelectorAll('[data-tab]').forEach(function(el){el.addEventListener('click',function(){setTab(el.dataset.tab)})});
 
-  var labels={audit:'Request my free audit',call:'Request a call',question:'Send my question'};
+  var labels={call:'Request a call',question:'Send my question'};
+  var slotIds=['fSlot1','fSlot2','fSlot3'];
+  function minNow(){var d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)}
+  slotIds.forEach(function(id){document.getElementById(id).min=minNow()});
   var submitBtn=document.getElementById('submitBtn');
-  function setGoal(g){var r=document.querySelector('input[name=goal][value='+g+']');if(r){r.checked=true;submitBtn.textContent=labels[g]}}
+  function setGoal(g){if(g==='audit')g='call';var r=document.querySelector('input[name=goal][value='+g+']');if(r){r.checked=true;submitBtn.textContent=labels[g]}var c=g==='call';document.getElementById('slots').hidden=!c;document.getElementById('phoneOpt').hidden=c}
+  setGoal('call');
   document.querySelectorAll('[data-goal]').forEach(function(el){el.addEventListener('click',function(){setGoal(el.dataset.goal)})});
   document.querySelectorAll('input[name=goal]').forEach(function(r){r.addEventListener('change',function(){setGoal(r.value)})});
 
@@ -641,17 +661,21 @@ footer a:hover{color:var(--on-band)}
     e.preventDefault();
     var v=function(id){return document.getElementById(id).value.trim()};
     var url=v('fUrl');
-    var ok=[check('fName',!!v('fName')),check('fBiz',!!v('fBiz')),check('fEmail',/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('fEmail'))),check('fUrl',!url||/^https?:\/\/\S+\.\S+/.test(url))];
+    var g=form.querySelector('input[name=goal]:checked').value, isCall=g==='call';
+    var ok=[check('fName',!!v('fName')),check('fBiz',!!v('fBiz')),check('fEmail',/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('fEmail'))),check('fPhone',!isCall||v('fPhone').replace(/\D/g,'').length>=7),check('fUrl',!url||/^https?:\/\/\S+\.\S+/.test(url))];
+    var slots=slotIds.map(v), now=minNow(), dupEl=document.getElementById('slotDup');
+    if(isCall){slots.forEach(function(s,i){ok.push(check(slotIds[i],!!s&&s>=now))});var dup=slots.every(Boolean)&&new Set(slots).size<3;dupEl.hidden=!dup;if(dup)ok.push(false)}
+    else{slotIds.forEach(function(id){check(id,true)});dupEl.hidden=true}
     if(ok.indexOf(false)>-1){var bad=form.querySelector('.field.bad input');if(bad)bad.focus();return}
-    var g=form.querySelector('input[name=goal]:checked').value, name=v('fName').split(' ')[0];
-    var t={audit:['Thanks, '+name+'. Your audit is in the queue.','We\'ll email the footprint report for '+v('fBiz')+' to '+v('fEmail')+' within one business day.'],
-           call:['Thanks, '+name+'. Let\'s find a time.','We\'ll email '+v('fEmail')+' with three call times this week.'],
+    var name=v('fName').split(' ')[0];
+    var fmt=function(s){return new Date(s).toLocaleString([],{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})};
+    var t={call:['Thanks, '+name+'. We\'ll confirm a time.','You suggested '+slots.map(fmt).join('; ')+'. We\'ll email '+v('fEmail')+' to confirm one and call you at '+v('fPhone')+'.'],
            question:['Thanks, '+name+'. We\'ll reply soon.','Expect an answer at '+v('fEmail')+' within one business day.']}[g];
     document.getElementById('doneTitle').textContent=t[0];
     document.getElementById('doneText').textContent=t[1];
     body.hidden=true;done.hidden=false;
   });
-  document.getElementById('againBtn').addEventListener('click',function(){form.reset();setGoal('audit');done.hidden=true;body.hidden=false});
+  document.getElementById('againBtn').addEventListener('click',function(){form.reset();setGoal('call');document.getElementById('slotDup').hidden=true;done.hidden=true;body.hidden=false});
 })();
 </script>
 </body>
